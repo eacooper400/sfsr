@@ -17,4 +17,3 @@ the original SFS with fixed bins (frequency zero or N) set to zero
 \description{
 Zero out frequency classes of fixed for ancestral or derived allele, leaving only polymorphic classes
 }
-

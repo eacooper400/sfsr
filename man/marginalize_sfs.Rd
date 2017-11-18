@@ -21,4 +21,3 @@ an SFS of reduced dimension, produced by "marginalizing out" (ie. just summing o
 \description{
 Get an SFS with reduced dimensions
 }
-

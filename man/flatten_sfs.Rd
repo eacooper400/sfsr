@@ -15,4 +15,3 @@ a vector containing the 'flattened' representation of the SFS, in row-major orde
 \description{
 Convert SFS to vector representation for saving in a file
 }
-

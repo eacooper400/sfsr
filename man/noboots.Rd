@@ -15,4 +15,3 @@ an SFS of same dimensions with any bootstrap replicates discarded
 \description{
 Discard bootstrap replicates from an SFS
 }
-

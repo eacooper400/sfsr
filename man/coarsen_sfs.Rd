@@ -25,4 +25,3 @@ The "coarse-grained" SFS produced by this function is useful as a lower-dimensin
 Tellier A, et al. (2011) Estimating parameters of speciation models based on refined summaries of the joint site-frequency spectrum.
 		PLoS One 6: e18155.
 }
-

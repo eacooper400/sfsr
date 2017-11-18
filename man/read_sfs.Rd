@@ -33,4 +33,3 @@ An \emph{unfolded} SFS (ie. polarized against the derived allele) is expected, a
 NB: Recent versions of \code{ANGSD} apparently get the ancestral and derived alleles backwards.  Use \code{repolarize = TRUE} to correct
 this issue at runtime.
 }
-

@@ -17,4 +17,3 @@ an one-dimensional SFS
 \description{
 Aggreage an n-dimensional SFS into a single dimension
 }
-

@@ -19,4 +19,3 @@ It appears that recent versions of the \code{ANGSD} software get the polarity of
 	at least in their output.  The distinction is not important for simple measures of diversity, but for tests
 	based on polymorphism vs divergence (McDonald-Kreitman, Hudson-Kreitman-Aguade) it matters.
 }
-

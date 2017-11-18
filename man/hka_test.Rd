@@ -31,4 +31,3 @@ Perform the HKA test.
 \references{
 Hudson RR, Kreitman M, Aguadé M (1987) A test of neutral molecular evolution based on nucleotide data. Genetics 116: 153-159.
 }
-

@@ -22,4 +22,3 @@ Calculate F_st (genetic differentiation among populations)
 \references{
 Weir BS, Cockerham C (1984) Estimating F-statistics for the analysis of population structure. Evolution 38: 1358-1370.
 }
-

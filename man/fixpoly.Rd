@@ -23,4 +23,3 @@ a 2 x K contingency table with count of fixed vs polymorphic sites in K spectra
 \description{
 Count fixed versus polymorphic sites in each of K spectra
 }
-
