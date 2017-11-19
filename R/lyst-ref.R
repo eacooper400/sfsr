@@ -5,7 +5,7 @@
 #'
 #' @docType data
 #'
-#' @usage data(lyst-ref)
+#' @usage readLines(lyst-ref)
 #'
 #' @format A text file with 1 column in fasta format
 #'
