@@ -16,8 +16,8 @@ fayWu_H <- function(sfs) {
     thetaW = theta_w(sfs)
     thetaL=((n-1)/n)*thetaW
     H=thetaPi - thetaL
-    var = variance.H(n, s, thetaW)
-    H = H/(sqrt(var))
+    varH = variance.H(n, s, thetaW)
+    H = H/(sqrt(varH))
     return(H)
 }
 
