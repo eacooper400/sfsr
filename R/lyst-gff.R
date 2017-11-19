@@ -4,7 +4,7 @@
 #'
 #' @docType data
 #'
-#' @usage data(lyst-gff)
+#' @usage readLines(lyst-gff)
 #'
 #' @format A text file in gff3 format
 #'
