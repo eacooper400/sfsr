@@ -15,7 +15,7 @@ fayWu_H <- function(sfs) {
     thetaPi = theta_pi(sfs)
     thetaW = theta_w(sfs)
     thetaL=((n-1)/n)*thetaW
-    H=thetaPi - thetaL
+    thetaH = (2*thetaL) - thetaPi
     varH = variance.H(n, s, thetaW)
     H = H/(sqrt(varH))
     return(H)
@@ -52,12 +52,10 @@ b1 <- function(n) {
 #' @export
 variance.H <- function(n,s,theta) {
     thetaSQ = (s*(s-1))/(((a1(n))**2)+b1(n))
-    f1 = ((n-2)/(6*(n-1))) * theta
-    num1 = 18 * (n**2) * ((3*n)+2) * b1(n+1)
-    num2 = (88 * (n**3)) + (9*(n**2)) - (13*n) + 6
-    denom = (9*n) * ((n-1)**2)
-    f2 = ((num1 - num2)/denom) * thetaSQ
-    v = f1+f2
+    num1 = (((36*(n^2) * ((2*n)+1) * ((1/n)+sum(1/((seq(1,n))^2))))*2)*thetaSQ)
+    num2=(2*(n^3)*thetaSQ)*116
+    num3 = ((((n^2)*9) + (2*n) + 3)*2)*thetaSQ
+    top=(num1-(num2 + num3))
+    v=top/((9*n) * ((n-1)^2))
     return(v)
 }
-
