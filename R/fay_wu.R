@@ -57,7 +57,7 @@ variance.H <- function(n,s,theta) {
     num2 = (88 * (n**3)) + (9*(n**2)) - (13*n) + 6
     denom = (9*n) * ((n-1)**2)
     f2 = ((num1 - num2)/denom) * thetaSQ
-    var = f1+f2
-    return(var)
+    v = f1+f2
+    return(v)
 }
 
