@@ -1,0 +1,1465 @@
+length(win.start)
+tail(win.start)
+max(my.data$POS)
+my.results=data.frame(Start=win.start, End=(win.start+10000))
+head(my.results)
+w1 = subset(aglaope, (aglaope$POS>=my.results$Start[1] & aglaope$POS<my.results$End[1]))#
+w2 = subset(amaryllis, (amaryllis$POS>=my.results$Start[1] & amaryllis$POS<my.results$End[1]))
+nrow(w1)
+nrow(w2)
+sfs = sfs.fromVcf(list(w1,w2))
+sfs
+sfs1 = sfs.fromVcf(list(w1,w2))
+w1 = subset(aglaope, (aglaope$POS>=my.results$Start[2] & aglaope$POS<my.results$End[2]))#
+w2 = subset(amaryllis, (amaryllis$POS>=my.results$Start[2] & amaryllis$POS<my.results$End[2]))#
+sfs2 = sfs.fromVcf(list(w1,w2))
+hka_test(list(sfs1,sfs2))
+h=hka_test(list(sfs1,sfs2))
+h
+summary(h)
+h$p.value
+my.results$HKA=rep(NA, nrow(my.results))#
+my.sfs = vector("list", nrow(my.results))#
+for (i in 1:nrow(my.results)) {#
+    w1 = subset(aglaope, (aglaope$POS>=my.results$Start[i] & aglaope$POS<my.results$End[i]))#
+    w2 = subset(amaryllis, (amaryllis$POS>=my.results$Start[i] & amaryllis$POS<my.results$End[i]))#
+    my.sfs[[i]] = sfs.fromVcf(list(w1,w2))#
+}
+my.sfs[[1]]
+h=hka_test(my.sfs)
+h
+hka_test(sfs1,sfs2)
+hka_test(my.sfs[[1]],my.sfs[[3]])
+hka_test(my.sfs[[1]],my.sfs[[300]])
+for (i in 1:length(my.sfs)) {#
+    h=hka_test(my.sfs[[1]], my.sfs[[i]])#
+    my.results$HKA=h$p.value#
+}
+head(my.results)
+tail(my.results)
+for (i in 1:length(my.sfs)) {#
+    h=hka_test(list(my.sfs[[1]], my.sfs[[i]]))#
+    my.results$HKA=h$p.value#
+}
+tail(my.results)
+i
+hka_test(my.sfs, my.sfs)
+h=hka_test(my.sfs, my.sfs)
+summary(h)
+?fuliD
+x=lapply(my.sfs, fuliD)
+for (i in 1:nrow(my.results)) {#
+    w = subset(my.data, (my.data$POS>=my.results$Start[i] & my.data$POS<my.results$End[i]))#
+    my.sfs[[i]]=sfs.romVcf(list(w))#
+}
+my.sfs = vector("list", nrow(my.results))#
+for (i in 1:nrow(my.results)) {#
+    w = subset(my.data, (my.data$POS>=my.results$Start[i] & my.data$POS<my.results$End[i]))#
+    my.sfs[[i]]=sfs.fromVcf(list(w))#
+}
+sfs=my.sfs[[1]]
+fuliD(sfs)
+my.results$FuLiD=NA
+for (i in 1:length(my.sfs)){
+h=hka_test(my.sfs[[i]])
+d=fuliD(my.sfs[[i]])
+wu=fuliF(my.sfs[[i]])
+my.results$HKA[i]=h$p.value
+my.results$FuLiD[i]=d
+my.results$FayWuH[i]=wu
+}
+head(my.results)
+head(my.results, n=100)
+my.results$Fst=NA
+for (i in 1:nrow(my.results)) {
+w1 = subset(aglaope, (aglaope$POS>=my.results$Start[i] & aglaope$POS<my.results$End[i]))#
+    w2 = subset(amaryllis, (amaryllis$POS>=my.results$Start[i] & amaryllis$POS<my.results$End[i]))
+fst.total=0
+s=0
+for (j in 1:nrow(w1)) {
+if (w1[j,5]==".") {
+next
+} else {
+}
+my.results$Fst=NA#
+tmp = rep(NA, nrow(my.data))#
+for (i in 1:nrow(my.data)) {#
+    m = maf(my.data[i,])#
+    m1 = maf(my.data[i,-amaryllis])#
+    m2 = maf(my.data[i, -aglaope])#
+    ht = m * (1-m)#
+    hs = ((m1 * (1-m1)) + (m2*(1-m2)))/2#
+    tmp[i] = (ht-hs)/ht#
+}
+source_gist("c954c757db02eb6c4ccfae1aa090658c", filename="compGen17_fxns.R", quiet=TRUE))
+source_gist("c954c757db02eb6c4ccfae1aa090658c", filename="compGen17_fxns.R", quiet=TRUE)
+my.results$Fst=NA#
+tmp = rep(NA, nrow(my.data))#
+for (i in 1:nrow(my.data)) {#
+    m = maf(my.data[i,])#
+    m1 = maf(my.data[i,-amaryllis])#
+    m2 = maf(my.data[i, -aglaope])#
+    ht = m * (1-m)#
+    hs = ((m1 * (1-m1)) + (m2*(1-m2)))/2#
+    tmp[i] = (ht-hs)/ht#
+}
+my.results$Fst=NA#
+tmp = rep(NA, nrow(my.data))#
+for (i in 1:nrow(my.data)) {#
+    m = maf(my.data[i,])#
+    m1 = maf(my.data[i,-c(amaryllis)])#
+    m2 = maf(my.data[i, -c(aglaope)])#
+    ht = m * (1-m)#
+    hs = ((m1 * (1-m1)) + (m2*(1-m2)))/2#
+    tmp[i] = (ht-hs)/ht#
+}
+aglaope=grep("^Am", colnames(my.data))#
+amaryllis=grep("^Ag", colnames(my.data))#
+#
+my.results$Fst=NA#
+tmp = rep(NA, nrow(my.data))#
+for (i in 1:nrow(my.data)) {#
+    m = maf(my.data[i,])#
+    m1 = maf(my.data[i,-c(amaryllis)])#
+    m2 = maf(my.data[i, -c(aglaope)])#
+    ht = m * (1-m)#
+    hs = ((m1 * (1-m1)) + (m2*(1-m2)))/2#
+    tmp[i] = (ht-hs)/ht#
+}
+my.results$Fst=NA#
+tmp = rep(NA, nrow(my.data))#
+for (i in 1:nrow(my.data)) {#
+    m = maf(my.data[i,])#
+    if (m>0) {#
+        m1 = maf(my.data[i,-c(amaryllis)])#
+        m2 = maf(my.data[i, -c(aglaope)])#
+        ht = m * (1-m)#
+        hs = ((m1 * (1-m1)) + (m2*(1-m2)))/2#
+        tmp[i] = (ht-hs)/ht#
+    } else { next }#
+}
+i
+nrow(my.data)
+my.data[i,]
+plot(my.data[1:5500,2], tmp)
+plot(my.data[1:5500,2], tmp[1:5500])
+my.results$Fst=NA#
+tmp = rep(NA, nrow(my.data))#
+for (i in 1:nrow(my.data)) {#
+    g=get.field(my.data[i,10:length(my.data)], my.data[i,9], "GT")#
+    if (length(grep("^\\.", g)) == length(g)) { next }#
+    m = maf(my.data[i,])#
+    if (m>0) {#
+        m1 = maf(my.data[i,-c(amaryllis)])#
+        m2 = maf(my.data[i, -c(aglaope)])#
+        ht = m * (1-m)#
+        hs = ((m1 * (1-m1)) + (m2*(1-m2)))/2#
+        tmp[i] = (ht-hs)/ht#
+    } else { next }#
+}
+i
+my.results$Fst=NA#
+tmp = rep(NA, nrow(my.data))#
+for (i in 1:nrow(my.data)) {#
+    g=get.field(as.vector(my.data[i,10:length(my.data)], mode="character"), my.data[i,9], "GT")#
+    if (length(grep("^\\.", g)) == length(g)) { next }#
+    m = maf(my.data[i,])#
+    if (m>0) {#
+        m1 = maf(my.data[i,-c(amaryllis)])#
+        m2 = maf(my.data[i, -c(aglaope)])#
+        ht = m * (1-m)#
+        hs = ((m1 * (1-m1)) + (m2*(1-m2)))/2#
+        tmp[i] = (ht-hs)/ht#
+    } else { next }#
+}
+plot(my.data[1:5500,2], tmp[1:5500])
+length(tmp)
+plot(my.data$POS, tmp)
+plot(my.data$POS[1:1000000], tmp[1:1000000])
+plot(my.data$POS[1:500000], tmp[1:500000])
+plot(my.data$POS[1:200000], tmp[1:200000])
+fst=read.table("Hm_fst.weir.fst", header=TRUE)
+plot(fst$POS, fst$WEIR_AND_COCKERHAM_FST)
+tmp=rep(NA, nrow(my.results))
+for (i in 1:length(tmp)) {
+w=subset(fst, (fst$POS>=my.results$Start[i] & fst$POS<my.results$End[i]))
+tmp[i]=mean(w$WEIR_AND_COCKERHAM_FST, na.rm=TRUE)
+}
+plot(my.results$Start, tmp)
+library(devtools)#
+source_gist("c954c757db02eb6c4ccfae1aa090658c", filename="compGen17_fxns.R", quiet=TRUE)
+options(stringsAsFactors=FALSE)
+my.data=read.vcf("Hmel_2mb.recode.vcf", header=TRUE)
+dim(my.data)
+f=min(my.data$POS)
+t=max(my.data$POS)
+win.start=seq(f,t,8000)
+my.results=data.frame(Start=win.start, End=win.start+10000)
+head(my.results)
+my.results$NumBP = 0
+head(my.data)
+head(my.results)
+apply(my.results, 1, function(x,y) length(which(y %in% c(x[1]:x[2]))), y=my.data$POS)
+my.result$NumBP=apply(my.results, 1, function(x,y) length(which(y %in% c(x[1]:x[2]))), y=my.data$POS)
+my.results$NumBP=apply(my.results, 1, function(x,y) length(which(y %in% c(x[1]:x[2]))), y=my.data$POS)
+min(which(my.data$ALT=="A"))
+my.data[c(1,1775),]
+my.data[c(1,1775),1:13]
+my.data=my.data[-grep("^\\.$", my.data$ALT),]
+nrow(my.data)
+head(my.data)
+my.results$NumSNP=apply(my.results, 1, function(x,y) length(which(y %in% c(x[1]:x[2]))), y=my.data$POS)
+head(my.results)
+aglaope=grep("^Ag", colnames(my.data))
+amaryllis=grep("^Am", colnames(my.data))
+my.win=vector("list", nrow(my.results))
+my.results$Dxy=NA
+for (i in 1:nrow(my.results)) {
+w=my.data[which(my.data$POS %in% my.results$Start[i]:my.results$End[i]),]
+vcf1=w[,-amaryllis]
+vcf2=w[,-aglaope]
+d = dxy(vcf1,vcf2, perBP=FALSE)
+my.results$Dxy[i]=d/my.results$NumBP[i]
+}
+head(my.results)
+quantile(my.results$Dxy)
+quantile(my.results$Dxy, na.rm=TRUE)
+str(quantile(my.results$Dxy, na.rm=TRUE))
+quantile(my.results$Dxy, na.rm=TRUE)["100%"]
+plot(my.results$Start, my.results$Dxy, type="l")
+f=min(my.data$POS)#
+t=max(my.data$POS)#
+win.start=seq(f,t,5000)#
+my.results=data.frame(Start=win.start, End=win.start+10000)#
+#
+my.results$NumBP = 0#
+my.results$NumBP=apply(my.results, 1, function(x,y) length(which(y %in% c(x[1]:x[2]))), y=my.data$POS)#
+#
+### Row 1775 has SNP, to show people as an example#
+### Ways to filter: find sites where ALT is not "."#
+### Find sites where ALT count or maf is >0#
+### Find sites with more than one FORMAT tag (but won't always work)#
+my.data[c(1,1775),1:13]#
+#
+my.data=my.data[-grep("^\\.$", my.data$ALT),]#
+my.results$NumSNP=apply(my.results, 1, function(x,y) length(which(y %in% c(x[1]:x[2]))), y=my.data$POS)#
+#
+aglaope=grep("^Ag", colnames(my.data))#
+amaryllis=grep("^Am", colnames(my.data))#
+#
+my.results$Dxy=NA#
+for (i in 1:nrow(my.results)) {#
+    w=my.data[which(my.data$POS %in% my.results$Start[i]:my.results$End[i]),]#
+    vcf1=w[,-amaryllis]#
+    vcf2=w[,-aglaope]#
+    d = dxy(vcf1,vcf2, perBP=FALSE)#
+    my.results$Dxy[i]=d/my.results$NumBP[i]#
+}#
+#
+quantile(my.results$Dxy, na.rm=TRUE)#
+plot(my.results$Start, my.results$Dxy, type="l")
+f=min(my.data$POS)#
+t=max(my.data$POS)#
+win.start=seq(f,t,5000)#
+my.results=data.frame(Start=win.start, End=win.start+10000)#
+#
+my.results$NumBP = 0#
+my.results$NumBP=apply(my.results, 1, function(x,y) length(which(y %in% c(x[1]:x[2]))), y=my.data$POS)#
+#
+### Row 1775 has SNP, to show people as an example#
+### Ways to filter: find sites where ALT is not "."#
+### Find sites where ALT count or maf is >0#
+### Find sites with more than one FORMAT tag (but won't always work)#
+my.data[c(1,1775),1:13]#
+#
+my.data=my.data[-grep("^\\.$", my.data$ALT),]#
+my.results$NumSNP=apply(my.results, 1, function(x,y) length(which(y %in% c(x[1]:x[2]))), y=my.data$POS)#
+#
+aglaope=grep("^Ag", colnames(my.data))#
+amaryllis=grep("^Am", colnames(my.data))#
+#
+my.results$Dxy=NA#
+for (i in 1:nrow(my.results)) {#
+    w=my.data[which(my.data$POS %in% my.results$Start[i]:my.results$End[i]),]#
+    vcf1=w[,-amaryllis]#
+    vcf2=w[,-aglaope]#
+    d = dxy(vcf1,vcf2, perBP=FALSE)#
+    my.results$Dxy[i]=d/my.results$NumBP[i]#
+}
+my.data$POS
+options(stringsAsFactors=FALSE)#
+#
+my.data=read.vcf("Hmel_2mb.recode.vcf", header=TRUE)#
+#
+f=min(my.data$POS)#
+t=max(my.data$POS)#
+win.start=seq(f,t,5000)#
+my.results=data.frame(Start=win.start, End=win.start+10000)#
+#
+my.results$NumBP = 0#
+my.results$NumBP=apply(my.results, 1, function(x,y) length(which(y %in% c(x[1]:x[2]))), y=my.data$POS)#
+#
+### Row 1775 has SNP, to show people as an example#
+### Ways to filter: find sites where ALT is not "."#
+### Find sites where ALT count or maf is >0#
+### Find sites with more than one FORMAT tag (but won't always work)#
+my.data[c(1,1775),1:13]#
+#
+my.data=my.data[-grep("^\\.$", my.data$ALT),]#
+my.results$NumSNP=apply(my.results, 1, function(x,y) length(which(y %in% c(x[1]:x[2]))), y=my.data$POS)#
+#
+aglaope=grep("^Ag", colnames(my.data))#
+amaryllis=grep("^Am", colnames(my.data))#
+#
+my.results$Dxy=NA#
+for (i in 1:nrow(my.results)) {#
+    w=my.data[which(my.data$POS %in% my.results$Start[i]:my.results$End[i]),]#
+    vcf1=w[,-amaryllis]#
+    vcf2=w[,-aglaope]#
+    d = dxy(vcf1,vcf2, perBP=FALSE)#
+    my.results$Dxy[i]=d/my.results$NumBP[i]#
+}#
+#
+quantile(my.results$Dxy, na.rm=TRUE)#
+plot(my.results$Start, my.results$Dxy, type="l")
+i
+my.results[i,]
+my.results$Dxy=NA#
+for (i in 1:nrow(my.results)) {#
+    w=my.data[which(my.data$POS %in% my.results$Start[i]:my.results$End[i]),]#
+    vcf1=w[,-amaryllis]#
+    vcf2=w[,-aglaope]#
+    d = dxy(vcf1,vcf2, perBP=FALSE)#
+    my.results$Dxy[i]=d/my.results$NumBP[i]#
+}
+i
+w
+my.results$Dxy=0#
+my.results$Dxy[which(my.results$NumBP==0)]=NA#
+for (i in 1:nrow(my.results)) {#
+    w=my.data[which(my.data$POS %in% my.results$Start[i]:my.results$End[i]),]#
+    if (nrow(w)==0) { next }#
+    vcf1=w[,-amaryllis]#
+    vcf2=w[,-aglaope]#
+    d = dxy(vcf1,vcf2, perBP=FALSE)#
+    my.results$Dxy[i]=d/my.results$NumBP[i]#
+}#
+#
+quantile(my.results$Dxy, na.rm=TRUE)#
+plot(my.results$Start, my.results$Dxy, type="l")
+my.results
+i=22
+w=my.data[which(my.data$POS %in% my.results$Start[i]:my.results$End[i]),]
+w
+vcf1=w[,-amaryllis]#
+    vcf2=w[,-aglaope]
+g1=t(apply(vcf1, 1, function(x) get.field(x[10:length(x)], x[9], "GT")))
+g1
+g2=t(apply(vcf2, 1, function(x) get.field(x[10:length(x)], x[9], "GT")))
+g2
+af1=apply(g1, 1, function(x) allele.freq(count.genotypes(x))["p"])
+af1
+my.data=read.vcf("Hmel_bi.recode.vcf", header=TRUE)#
+#
+f=min(my.data$POS)#
+t=max(my.data$POS)#
+win.start=seq(f,t,5000)#
+my.results=data.frame(Start=win.start, End=win.start+10000)#
+#
+my.results$NumBP = 0#
+my.results$NumBP=apply(my.results, 1, function(x,y) length(which(y %in% c(x[1]:x[2]))), y=my.data$POS)#
+#
+### Row 1775 has SNP, to show people as an example#
+### Ways to filter: find sites where ALT is not "."#
+### Find sites where ALT count or maf is >0#
+### Find sites with more than one FORMAT tag (but won't always work)#
+my.data[c(1,1775),1:13]#
+#
+my.data=my.data[-grep("^\\.$", my.data$ALT),]#
+my.results$NumSNP=apply(my.results, 1, function(x,y) length(which(y %in% c(x[1]:x[2]))), y=my.data$POS)#
+#
+aglaope=grep("^Ag", colnames(my.data))#
+amaryllis=grep("^Am", colnames(my.data))#
+#
+my.results$Dxy=0#
+my.results$Dxy[which(my.results$NumBP==0)]=NA#
+for (i in 1:nrow(my.results)) {#
+    w=my.data[which(my.data$POS %in% my.results$Start[i]:my.results$End[i]),]#
+    if (nrow(w)==0) { next }#
+    vcf1=w[,-amaryllis]#
+    vcf2=w[,-aglaope]#
+    d = dxy(vcf1,vcf2, perBP=FALSE)#
+    my.results$Dxy[i]=d/my.results$NumBP[i]#
+}#
+#
+quantile(my.results$Dxy, na.rm=TRUE)#
+plot(my.results$Start, my.results$Dxy, type="l")
+win.start=seq(f,t,8000)#
+my.results=data.frame(Start=win.start, End=win.start+10000)#
+#
+my.results$NumBP = 0#
+my.results$NumBP=apply(my.results, 1, function(x,y) length(which(y %in% c(x[1]:x[2]))), y=my.data$POS)#
+#
+### Row 1775 has SNP, to show people as an example#
+### Ways to filter: find sites where ALT is not "."#
+### Find sites where ALT count or maf is >0#
+### Find sites with more than one FORMAT tag (but won't always work)#
+my.data[c(1,1775),1:13]#
+#
+my.data=my.data[-grep("^\\.$", my.data$ALT),]#
+my.results$NumSNP=apply(my.results, 1, function(x,y) length(which(y %in% c(x[1]:x[2]))), y=my.data$POS)#
+#
+aglaope=grep("^Ag", colnames(my.data))#
+amaryllis=grep("^Am", colnames(my.data))#
+#
+my.results$Dxy=0#
+my.results$Dxy[which(my.results$NumBP==0)]=NA#
+for (i in 1:nrow(my.results)) {#
+    w=my.data[which(my.data$POS %in% my.results$Start[i]:my.results$End[i]),]#
+    if (nrow(w)==0) { next }#
+    vcf1=w[,-amaryllis]#
+    vcf2=w[,-aglaope]#
+    d = dxy(vcf1,vcf2, perBP=FALSE)#
+    my.results$Dxy[i]=d/my.results$NumBP[i]#
+}#
+#
+quantile(my.results$Dxy, na.rm=TRUE)#
+plot(my.results$Start, my.results$Dxy, type="l")
+my.data=read.vcf("Hmel_bi.recode.vcf", header=TRUE)#
+#
+f=min(my.data$POS)#
+t=max(my.data$POS)#
+win.start=seq(f,t,8000)#
+my.results=data.frame(Start=win.start, End=win.start+10000)#
+#
+my.results$NumBP = 0#
+my.results$NumBP=apply(my.results, 1, function(x,y) length(which(y %in% c(x[1]:x[2]))), y=my.data$POS)#
+#
+### Row 1775 has SNP, to show people as an example#
+### Ways to filter: find sites where ALT is not "."#
+### Find sites where ALT count or maf is >0#
+### Find sites with more than one FORMAT tag (but won't always work)#
+my.data[c(1,1775),1:13]#
+#
+my.data=my.data[-grep("^\\.$", my.data$ALT),]#
+my.results$NumSNP=apply(my.results, 1, function(x,y) length(which(y %in% c(x[1]:x[2]))), y=my.data$POS)#
+#
+aglaope=grep("^Ag", colnames(my.data))#
+amaryllis=grep("^Am", colnames(my.data))#
+#
+my.results$Dxy=0#
+my.results$Dxy[which(my.results$NumBP==0)]=NA#
+for (i in 1:nrow(my.results)) {#
+    w=my.data[which(my.data$POS %in% my.results$Start[i]:my.results$End[i]),]#
+    if (nrow(w)==0) { next }#
+    vcf1=w[,-amaryllis]#
+    vcf2=w[,-aglaope]#
+    d = dxy(vcf1,vcf2, perBP=FALSE)#
+    my.results$Dxy[i]=d/my.results$NumBP[i]#
+}#
+#
+quantile(my.results$Dxy, na.rm=TRUE)#
+plot(my.results$Start, my.results$Dxy, type="l")
+my.results$Tajima=0#
+my.results$Tajima[which(my.results$NumBP==0)]=NA#
+for (i in 1:nrow(my.results)) {#
+    w=my.data[which(my.data$POS %in% my.results$Start[i]:my.results$End[i]),]    #
+    theta=waterson.theta(w, perBP=FALSE)#
+    pi=pi.diversity(w, perBP=FALSE)#
+    n=2*(ncol(w)-9)#
+    s=nrow(w)#
+    var=variance.d(n,s)#
+    my.results$Tajima[i]=(pi-theta)/sqrt(var)#
+    }
+my.results
+plot(my.results$Start, my.results$Tajima, type="l")
+plot(my.results$Start, my.results$Tajima, type="l")for (i in 1:nrow(my.results)) {#
+    w=my.data[which(my.data$POS %in% my.results$Start[i]:my.results$End[i]),]    #
+    ##theta=waterson.theta(w, perBP=FALSE)#
+    pi=pi.diversity(w, perBP=FALSE)#
+    ##n=2*(ncol(w)-9)#
+    ##s=nrow(w)#
+    ##var=variance.d(n,s)#
+    ##my.results$Tajima[i]=(pi-theta)/sqrt(var)#
+    my.results$Pi[i]=pi/my.results$NumBP[i]#
+}
+for (i in 1:nrow(my.results)) {#
+    w=my.data[which(my.data$POS %in% my.results$Start[i]:my.results$End[i]),]    #
+    ##theta=waterson.theta(w, perBP=FALSE)#
+    pi=pi.diversity(w, perBP=FALSE)#
+    ##n=2*(ncol(w)-9)#
+    ##s=nrow(w)#
+    ##var=variance.d(n,s)#
+    ##my.results$Tajima[i]=(pi-theta)/sqrt(var)#
+    my.results$Pi[i]=pi/my.results$NumBP[i]#
+}
+plot(my.results$Start, my.results$Pi, type="l")
+plot(my.results$Start, my.results$Pi, type="l", ylim=c(0,0.1))
+lines(my.results$Start, my.results$Dxy)
+lines(my.results$Start, my.results$Dxy, col="red")
+for (i in 1:nrow(my.results)) {#
+    w=my.data[which(my.data$POS %in% my.results$Start[i]:my.results$End[i]),]    #
+    theta=waterson.theta(w, perBP=FALSE)#
+    my.results$Theta[i]=theta/my.results$NumBP[i]#
+    pi=pi.diversity(w, perBP=FALSE)#
+    n=2*(ncol(w)-9)#
+    s=nrow(w)#
+    var=variance.d(n,s)#
+    my.results$Tajima[i]=(pi-theta)/sqrt(var)#
+    my.results$Pi[i]=pi/my.results$NumBP[i]#
+}
+par(mar=c(5,5,2,5)) ## First, I'm going to set the margins to allow room on the right side for another axis#
+plot(my.results$Start, my.results$Tajima, type="l", lwd=2, col="red", ylim=c(-2,2), main="Tajima's D, Waterson's Theta, and Pi", xlab="Position", ylab="Tajima's D") ## Then, make my first (D) plot like normal#
+par(new=T) ## I will use this to add my next plot to the first one (rather than overwriting)#
+plot(my.results$Start, my.results$Theta, type="l", lwd=2, col="blue", axes=F, xlab=NA, ylab=NA) ## This adds the line for theta.w; notice I set axes to FALSE, and axis labels to NA;#
+## this prevents the axes from being written over the top of what is already there; I'll add then back at the end#
+## Next, let's add Pi to the plot in the same way#
+par(new=T)#
+plot(my.results$Start, my.results$Pi, type="l", lwd=2, col="darkgreen", axes=F, xlab=NA, ylab=NA)#
+## Now, I add the axes back for the theta values, but I put them on the left side:#
+axis(side=4)#
+mtext(side=4, line=3, "Theta per base pair")#
+legend("topright", legend=c("Tajima's D", "Waterson's Theta", "Nuc. Diversity"), lty=c(1,1,1), lwd=c(2,2,2), col=c("red", "blue", "darkgreen"))
+par(mar=c(5,5,2,5))#
+#
+### Create an empty plot#
+plot(my.results$Start, my.results$Theta, type="n", main="Population Mutation Rate vs. Divergence", xlab="Position", ylab="Theta")#
+#
+### Plot Theta-w as a semi-transparent filled in shape#
+polygon(c(my.results$Start[1], my.results$Start, my.results$Start[nrow(my.results]),#
+          c(0, my.results$Theta, 0), col=rgb(0,0,1, alpha=0.3), border=NA)
+par(mar=c(5,5,2,5))#
+#
+### Create an empty plot#
+plot(my.results$Start, my.results$Theta, type="n", main="Population Mutation Rate vs. Divergence", xlab="Position", ylab="Theta")#
+#
+### Plot Theta-w as a semi-transparent filled in shape#
+polygon(c(my.results$Start[1], my.results$Start, my.results$Start[nrow(my.results)]),#
+          c(0, my.results$Theta, 0), col=rgb(0,0,1, alpha=0.3), border=NA)
+par(mar=c(5,5,2,5))#
+#
+### Create an empty plot#
+plot(my.results$Start, my.results$Theta, type="n", main="Population Mutation Rate vs. Divergence", xlab="Position", ylab="Theta", ylim=c(0.07)#
+#
+### Plot Theta-w as a semi-transparent filled in shape#
+polygon(c(my.results$Start[1], my.results$Start, my.results$Start[nrow(my.results)]),#
+          c(0, my.results$Theta, 0), col=rgb(0,0,1, alpha=0.3), border=NA)
+par(mar=c(5,5,2,5))#
+#
+### Create an empty plot#
+plot(my.results$Start, my.results$Theta, type="n", main="Population Mutation Rate vs. Divergence", xlab="Position", ylab="Theta", ylim=c(0.07))#
+#
+### Plot Theta-w as a semi-transparent filled in shape#
+polygon(c(my.results$Start[1], my.results$Start, my.results$Start[nrow(my.results)]),#
+          c(0, my.results$Theta, 0), col=rgb(0,0,1, alpha=0.3), border=NA)
+par(mar=c(5,5,2,5))#
+#
+### Create an empty plot#
+plot(my.results$Start, my.results$Theta, type="n",#
+     main="Population Mutation Rate vs. Divergence", xlab="Position", ylab="Theta", ylim=c(0,0.07))#
+#
+### Plot Theta-w as a semi-transparent filled in shape#
+polygon(c(my.results$Start[1], my.results$Start, my.results$Start[nrow(my.results)]),#
+        c(0, my.results$Theta, 0), col=rgb(0,0,1, alpha=0.3), border=NA)
+lines(my.results$Start, my.results$Pi, lwd=2, col="black", lty=3)
+par(mar=c(5,5,2,5))#
+#
+### Create an empty plot#
+plot(my.results$Start, my.results$Theta, type="n",#
+     main="Population Mutation Rate vs. Divergence", xlab="Position", ylab="Theta", ylim=c(0,0.07))#
+#
+### Plot Theta-w as a semi-transparent filled in shape#
+polygon(c(my.results$Start[1], my.results$Start, my.results$Start[nrow(my.results)]),#
+        c(0, my.results$Theta, 0), col=rgb(0,0,1, alpha=0.3), border=NA)#
+#
+### Add a line for Pi#
+lines(my.results$Start, my.results$Pi, col="darkblue")
+par(mar=c(5,5,2,5))#
+#
+### Create an empty plot#
+plot(my.results$Start, my.results$Theta, type="n",#
+     xlab="Position",#
+     ylab="Population Mutation Rate (Theta or Pi)", ylim=c(-0.07,0.07))#
+#
+### Plot Theta-w as a semi-transparent filled in shape#
+polygon(c(my.results$Start[1], my.results$Start, my.results$Start[nrow(my.results)]),#
+        c(0, my.results$Theta, 0), col=rgb(0,0,1, alpha=0.3), border=NA)#
+#
+### Add a line for Pi#
+lines(my.results$Start, my.results$Pi, col="darkblue")#
+#
+### To add Tajima's D, which is scaled differently, I need to make a new plot on top of this one,#
+### and add a separate set of axes#
+par(new=T)#
+plot(my.results$Start, my.results$Tajima, type="l",#
+     col="red", ylim=c(-2,2), lty=3, axes=F, xlab=NA, ylab=NA)#
+axis(side=4)#
+mtext(side=4, line=3, "Tajima's D")
+par(mar=c(5,5,2,5))#
+#
+### Create an empty plot#
+plot(my.results$Start, my.results$Theta, type="n",#
+     xlab="Position",#
+     ylab="Population Mutation Rate (Theta or Pi)", ylim=c(-0.07,0.07))#
+#
+### Plot Theta-w as a semi-transparent filled in shape#
+polygon(c(my.results$Start[1], my.results$Start, my.results$Start[nrow(my.results)]),#
+        c(0, my.results$Theta, 0), col=rgb(0,0,1, alpha=0.3), border=NA)#
+#
+### Add a line for Pi#
+lines(my.results$Start, my.results$Pi, col="darkblue")#
+#
+### Add a line for Dxy#
+lines(my.results$Start, my.results$Dxy, col="green", lty=2)#
+#
+### To add Tajima's D, which is scaled differently, I need to make a new plot on top of this one,#
+### and add a separate set of axes#
+par(new=T)#
+plot(my.results$Start, my.results$Tajima, type="l",#
+     col="red", ylim=c(-2,2), lty=3, axes=F, xlab=NA, ylab=NA)#
+axis(side=4)#
+mtext(side=4, line=3, "Tajima's D")
+par(mar=c(5,5,2,5))#
+#
+### Create an empty plot#
+plot(my.results$Start, my.results$Theta, type="n",#
+     xlab="Position",#
+     ylab="Population Mutation Rate (Theta or Pi)", ylim=c(-0.06,0.07))#
+#
+### Plot Theta-w as a semi-transparent filled in shape#
+polygon(c(my.results$Start[1], my.results$Start, my.results$Start[nrow(my.results)]),#
+        c(0, my.results$Theta, 0), col=rgb(0,0,1, alpha=0.3), border=NA)#
+#
+### Add a line for Pi#
+lines(my.results$Start, my.results$Pi, col="darkblue")#
+#
+### Add a line for Dxy#
+lines(my.results$Start, my.results$Dxy, col="green", lty=2)#
+#
+### To add Tajima's D, which is scaled differently, I need to make a new plot on top of this one,#
+### and add a separate set of axes#
+par(new=T)#
+plot(my.results$Start, my.results$Tajima, type="l",#
+     col="red", ylim=c(-1.5,2), lty=3, axes=F, xlab=NA, ylab=NA)#
+axis(side=4)#
+mtext(side=4, line=3, "Tajima's D")
+par(mar=c(5,5,2,5))#
+#
+### Create an empty plot#
+plot(my.results$Start, my.results$Theta, type="n",#
+     xlab="Position",#
+     ylab="Population Mutation Rate (Theta or Pi)", ylim=c(-0.055,0.07))#
+#
+### Plot Theta-w as a semi-transparent filled in shape#
+polygon(c(my.results$Start[1], my.results$Start, my.results$Start[nrow(my.results)]),#
+        c(0, my.results$Theta, 0), col=rgb(0,0,1, alpha=0.3), border=NA)#
+#
+### Add a line for Pi#
+lines(my.results$Start, my.results$Pi, col="darkblue")#
+#
+### Add a line for Dxy#
+lines(my.results$Start, my.results$Dxy, col="green", lty=2)#
+#
+### To add Tajima's D, which is scaled differently, I need to make a new plot on top of this one,#
+### and add a separate set of axes#
+par(new=T)#
+plot(my.results$Start, my.results$Tajima, type="l",#
+     col="red", ylim=c(-1.5,2), lty=3, axes=F, xlab=NA, ylab=NA)#
+axis(side=4)#
+mtext(side=4, line=3, "Tajima's D")
+par(mar=c(5,5,2,5))#
+#
+### Create an empty plot#
+plot(my.results$Start, my.results$Theta, type="n",#
+     xlab="Position",#
+     ylab="Population Mutation Rate (Theta or Pi)", ylim=c(-0.05,0.07))#
+#
+### Plot Theta-w as a semi-transparent filled in shape#
+polygon(c(my.results$Start[1], my.results$Start, my.results$Start[nrow(my.results)]),#
+        c(0, my.results$Theta, 0), col=rgb(0,0,1, alpha=0.3), border=NA)#
+#
+### Add a line for Pi#
+lines(my.results$Start, my.results$Pi, col="darkblue")#
+#
+### Add a line for Dxy#
+lines(my.results$Start, my.results$Dxy, col="green", lty=2)#
+#
+### To add Tajima's D, which is scaled differently, I need to make a new plot on top of this one,#
+### and add a separate set of axes#
+par(new=T)#
+plot(my.results$Start, my.results$Tajima, type="l",#
+     col="red", ylim=c(-1.5,2), lty=3, axes=F, xlab=NA, ylab=NA)#
+axis(side=4)#
+mtext(side=4, line=3, "Tajima's D")
+par(mar=c(5,5,2,5))#
+#
+### Create an empty plot#
+plot(my.results$Start, my.results$Theta, type="n",#
+     xlab="Position",#
+     ylab="Population Mutation Rate (Theta or Pi)", ylim=c(-0.054,0.07))#
+#
+### Plot Theta-w as a semi-transparent filled in shape#
+polygon(c(my.results$Start[1], my.results$Start, my.results$Start[nrow(my.results)]),#
+        c(0, my.results$Theta, 0), col=rgb(0,0,1, alpha=0.3), border=NA)#
+#
+### Add a line for Pi#
+lines(my.results$Start, my.results$Pi, col="darkblue")#
+#
+### Add a line for Dxy#
+lines(my.results$Start, my.results$Dxy, col="green", lty=2)#
+#
+### To add Tajima's D, which is scaled differently, I need to make a new plot on top of this one,#
+### and add a separate set of axes#
+par(new=T)#
+plot(my.results$Start, my.results$Tajima, type="l",#
+     col="red", ylim=c(-1.5,2), lty=3, axes=F, xlab=NA, ylab=NA)#
+axis(side=4)#
+mtext(side=4, line=3, "Tajima's D")
+par(mar=c(5,5,2,5))#
+#
+### Create an empty plot#
+plot(my.results$Start, my.results$Theta, type="n",#
+     xlab="Position",#
+     ylab=expression(paste("Population Mutation Rate (", expression(theta[W]), pi, ")")), ylim=c(-0.054,0.07))#
+#
+### Plot Theta-w as a semi-transparent filled in shape#
+polygon(c(my.results$Start[1], my.results$Start, my.results$Start[nrow(my.results)]),#
+        c(0, my.results$Theta, 0), col=rgb(0,0,1, alpha=0.3), border=NA)#
+#
+### Add a line for Pi#
+lines(my.results$Start, my.results$Pi, col="darkblue")#
+#
+### Add a line for Dxy#
+lines(my.results$Start, my.results$Dxy, col="green", lty=2)#
+#
+### To add Tajima's D, which is scaled differently, I need to make a new plot on top of this one,#
+### and add a separate set of axes#
+par(new=T)#
+plot(my.results$Start, my.results$Tajima, type="l",#
+     col="red", ylim=c(-1.5,2), lty=3, axes=F, xlab=NA, ylab=NA)#
+axis(side=4)#
+mtext(side=4, line=3, "Tajima's D")
+par(mar=c(5,5,2,5))#
+#
+### Create an empty plot#
+plot(my.results$Start, my.results$Theta, type="n",#
+     xlab="Position",#
+     ylab=expression(paste("Population Mutation Rate (", theta[W], " & ", pi, ")")), ylim=c(-0.054,0.07))#
+#
+### Plot Theta-w as a semi-transparent filled in shape#
+polygon(c(my.results$Start[1], my.results$Start, my.results$Start[nrow(my.results)]),#
+        c(0, my.results$Theta, 0), col=rgb(0,0,1, alpha=0.3), border=NA)#
+#
+### Add a line for Pi#
+lines(my.results$Start, my.results$Pi, col="darkblue")#
+#
+### Add a line for Dxy#
+lines(my.results$Start, my.results$Dxy, col="green", lty=2)#
+#
+### To add Tajima's D, which is scaled differently, I need to make a new plot on top of this one,#
+### and add a separate set of axes#
+par(new=T)#
+plot(my.results$Start, my.results$Tajima, type="l",#
+     col="red", ylim=c(-1.5,2), lty=3, axes=F, xlab=NA, ylab=NA)#
+axis(side=4)#
+mtext(side=4, line=3, "Tajima's D")
+legend("topright",#
+       legend=c(expression(theta[W]), expression(Pi), expression(D[XY]), "Tajima's D"),#
+       lty=c(1,1,2,3), lwd=c(1,1,1,1), col=c("white", "darkblue", "green", "red"), bty=NA)
+legend("topright",#
+       legend=c(expression(theta[W]), expression(Pi), expression(D[XY]), "Tajima's D"),#
+       lty=c(1,1,2,3), lwd=c(1,1,1,1), col=c("white", "darkblue", "green", "red"))
+legend("topright",#
+       legend=c(expression(theta[W]), expression(Pi), expression(D[XY]), "Tajima's D"),#
+       lty=c(1,1,2,3), lwd=c(1,1,1,1), col=c("white", "darkblue", "green", "red")par(mar=c(5,5,2,5))#
+#
+### Create an empty plot#
+plot(my.results$Start, my.results$Theta, type="n",#
+     xlab="Position",#
+     ylab=expression(paste("Population Mutation Rate (", theta[W], " & ", pi, ")")), ylim=c(-0.054,0.07))#
+#
+### Plot Theta-w as a semi-transparent filled in shape#
+polygon(c(my.results$Start[1], my.results$Start, my.results$Start[nrow(my.results)]),#
+        c(0, my.results$Theta, 0), col=rgb(0,0,1, alpha=0.3), border=NA)#
+#
+### Add a line for Pi#
+lines(my.results$Start, my.results$Pi, col="darkblue")#
+#
+### Add a line for Dxy#
+lines(my.results$Start, my.results$Dxy, col="green", lty=2)#
+#
+### To add Tajima's D, which is scaled differently, I need to make a new plot on top of this one,#
+### and add a separate set of axes#
+par(new=T)#
+plot(my.results$Start, my.results$Tajima, type="l",#
+     col="red", ylim=c(-1.5,2), lty=3, axes=F, xlab=NA, ylab=NA)#
+axis(side=4)#
+mtext(side=4, line=3, "Tajima's D")#
+#
+### Finally, let's make a legend#
+legend("topright",#
+       legend=c(expression(theta[W]), expression(Pi), expression(D[XY]), "Tajima's D"),#
+       lty=c(1,1,2,3), lwd=c(1,1,1,1), col=c("white", "darkblue", "green", "red"), border=NA)#
+)
+par(mar=c(5,5,2,5))#
+#
+### Create an empty plot#
+plot(my.results$Start, my.results$Theta, type="n",#
+     xlab="Position",#
+     ylab=expression(paste("Population Mutation Rate (", theta[W], " & ", pi, ")")), ylim=c(-0.054,0.07))#
+#
+### Plot Theta-w as a semi-transparent filled in shape#
+polygon(c(my.results$Start[1], my.results$Start, my.results$Start[nrow(my.results)]),#
+        c(0, my.results$Theta, 0), col=rgb(0,0,1, alpha=0.3), border=NA)#
+#
+### Add a line for Pi#
+lines(my.results$Start, my.results$Pi, col="darkblue")#
+#
+### Add a line for Dxy#
+lines(my.results$Start, my.results$Dxy, col="green", lty=2)#
+#
+### To add Tajima's D, which is scaled differently, I need to make a new plot on top of this one,#
+### and add a separate set of axes#
+par(new=T)#
+plot(my.results$Start, my.results$Tajima, type="l",#
+     col="red", ylim=c(-1.5,2), lty=3, axes=F, xlab=NA, ylab=NA)#
+axis(side=4)#
+mtext(side=4, line=3, "Tajima's D")#
+#
+### Finally, let's make a legend#
+legend("topright",#
+       legend=c(expression(theta[W]), expression(Pi), expression(D[XY]), "Tajima's D"),#
+       lty=c(1,1,2,3), lwd=c(1,1,1,1), col=c("white", "darkblue", "green", "red"), border=NA)
+par(mar=c(5,5,2,5))#
+#
+### Create an empty plot#
+plot(my.results$Start, my.results$Theta, type="n",#
+     xlab="Position",#
+     ylab=expression(paste("Population Mutation Rate (", theta[W], " & ", pi, ")")), ylim=c(-0.054,0.07))#
+#
+### Plot Theta-w as a semi-transparent filled in shape#
+polygon(c(my.results$Start[1], my.results$Start, my.results$Start[nrow(my.results)]),#
+        c(0, my.results$Theta, 0), col=rgb(0,0,1, alpha=0.3), border=NA)#
+#
+### Add a line for Pi#
+lines(my.results$Start, my.results$Pi, col="darkblue")#
+#
+### Add a line for Dxy#
+lines(my.results$Start, my.results$Dxy, col="green", lty=2)#
+#
+### To add Tajima's D, which is scaled differently, I need to make a new plot on top of this one,#
+### and add a separate set of axes#
+par(new=T)#
+plot(my.results$Start, my.results$Tajima, type="l",#
+     col="red", ylim=c(-1.5,2), lty=3, axes=F, xlab=NA, ylab=NA)#
+axis(side=4)#
+mtext(side=4, line=3, "Tajima's D")#
+#
+### Finally, let's make a legend#
+legend("topright",#
+       legend=c(expression(theta[W]), expression(Pi), expression(D[XY]), "Tajima's D"),#
+       lty=c(1,1,2,3), lwd=c(1,1,1,1), col=c("white", "darkblue", "green", "red"), bty="n")
+par(mar=c(5,5,2,5))#
+#
+### Create an empty plot#
+plot(my.results$Start, my.results$Theta, type="n",#
+     xlab="Position",#
+     ylab=expression(paste("Population Mutation Rate (", theta[W], " & ", pi, ")")), ylim=c(-0.054,0.07))#
+#
+### Plot Theta-w as a semi-transparent filled in shape#
+polygon(c(my.results$Start[1], my.results$Start, my.results$Start[nrow(my.results)]),#
+        c(0, my.results$Theta, 0), col=rgb(0,0,1, alpha=0.3), border=NA)#
+#
+### Add a line for Pi#
+lines(my.results$Start, my.results$Pi, col="darkblue")#
+#
+### Add a line for Dxy#
+lines(my.results$Start, my.results$Dxy, col="green", lty=2)#
+#
+### To add Tajima's D, which is scaled differently, I need to make a new plot on top of this one,#
+### and add a separate set of axes#
+par(new=T)#
+plot(my.results$Start, my.results$Tajima, type="l",#
+     col="red", ylim=c(-1.5,2), lty=3, axes=F, xlab=NA, ylab=NA)#
+axis(side=4)#
+mtext(side=4, line=3, "Tajima's D")#
+#
+### Finally, let's make a legend#
+legend("topright",#
+       legend=c(expression(theta[W]), expression(Pi), expression(D[XY]), "Tajima's D"),lty=c(1,1,2,3),#
+       lwd=c(1,1,1,1), col=c("white", "darkblue", "green", "red"), bty="n", cex=0.8)
+plot.char
+pch
+legend("topright",#
+       legend=c("", "", "", ""), pch=c(22,22,22,22),#
+       col=c(rgb(0,0,1, alpha=0.3),rgb(0,0,1, alpha=1),rgb(0,0,1, alpha=1),rgb(0,0,1, alpha=1)), bty="n", cex=0.8)
+par(mar=c(5,5,2,5))#
+#
+### Create an empty plot#
+plot(my.results$Start, my.results$Theta, type="n",#
+     xlab="Position",#
+     ylab=expression(paste("Population Mutation Rate (", theta[W], " & ", pi, ")")), ylim=c(-0.054,0.07))#
+#
+### Plot Theta-w as a semi-transparent filled in shape#
+polygon(c(my.results$Start[1], my.results$Start, my.results$Start[nrow(my.results)]),#
+        c(0, my.results$Theta, 0), col=rgb(0,0,1, alpha=0.3), border=NA)#
+#
+### Add a line for Pi#
+lines(my.results$Start, my.results$Pi, col="darkblue")#
+#
+### Add a line for Dxy#
+lines(my.results$Start, my.results$Dxy, col="green", lty=2)#
+#
+### To add Tajima's D, which is scaled differently, I need to make a new plot on top of this one,#
+### and add a separate set of axes#
+par(new=T)#
+plot(my.results$Start, my.results$Tajima, type="l",#
+     col="red", ylim=c(-1.5,2), lty=3, axes=F, xlab=NA, ylab=NA)#
+axis(side=4)#
+mtext(side=4, line=3, "Tajima's D")#
+#
+### Finally, let's make a legend#
+legend("topright",#
+       legend=c(expression(theta[W]), expression(Pi), expression(D[XY]), "Tajima's D"),lty=c(1,1,2,3),#
+       lwd=c(1,1,1,1), col=c("white", "darkblue", "green", "red"), bty="n", cex=0.8)#
+#
+legend("topright",#
+       legend=c("  ", " ", "   ", "         "), pch=c(22,22,22,22),#
+       col=c(rgb(0,0,1, alpha=0.3),rgb(0,0,1, alpha=0),rgb(0,0,1, alpha=0),rgb(0,0,1, alpha=0)),#
+       fill=c(rgb(0,0,1, alpha=0.3),rgb(0,0,1, alpha=0),rgb(0,0,1, alpha=0),rgb(0,0,1, alpha=0)),#
+       bty="n", cex=0.8)
+par(mar=c(5,5,2,5))#
+#
+### Create an empty plot#
+plot(my.results$Start, my.results$Theta, type="n",#
+     xlab="Position",#
+     ylab=expression(paste("Population Mutation Rate (", theta[W], " & ", pi, ")")), ylim=c(-0.054,0.07))#
+#
+### Plot Theta-w as a semi-transparent filled in shape#
+polygon(c(my.results$Start[1], my.results$Start, my.results$Start[nrow(my.results)]),#
+        c(0, my.results$Theta, 0), col=rgb(0,0,1, alpha=0.3), border=NA)#
+#
+### Add a line for Pi#
+lines(my.results$Start, my.results$Pi, col="darkblue")#
+#
+### Add a line for Dxy#
+lines(my.results$Start, my.results$Dxy, col="green", lty=2)#
+#
+### To add Tajima's D, which is scaled differently, I need to make a new plot on top of this one,#
+### and add a separate set of axes#
+par(new=T)#
+plot(my.results$Start, my.results$Tajima, type="l",#
+     col="red", ylim=c(-1.5,2), lty=3, axes=F, xlab=NA, ylab=NA)#
+axis(side=4)#
+mtext(side=4, line=3, "Tajima's D")#
+#
+### Finally, let's make a legend#
+lgd <- legend("topright", legend = c("", "", "", ""),#
+              pch=NA, lty=c(NA, 1,2,3), col=c(NA,"darkblue","green","red"), bty="n")#
+legend(lgd$rect$left+lgd$rect$w, lgd$rect$top,#
+       legend=c(expression(theta[W]), expression(Pi), expression(D[XY]), "Tajima's D"),#
+       pch=c(22,NA,NA,NA), fill=c(rgb(0,0,1, alpha=0.3), NA,NA,NA), bty="n")
+lgd
+par(mar=c(5,5,2,5))#
+#
+### Create an empty plot#
+plot(my.results$Start, my.results$Theta, type="n",#
+     xlab="Position",#
+     ylab=expression(paste("Population Mutation Rate (", theta[W], " & ", pi, ")")), ylim=c(-0.054,0.07))#
+#
+### Plot Theta-w as a semi-transparent filled in shape#
+polygon(c(my.results$Start[1], my.results$Start, my.results$Start[nrow(my.results)]),#
+        c(0, my.results$Theta, 0), col=rgb(0,0,1, alpha=0.3), border=NA)#
+#
+### Add a line for Pi#
+lines(my.results$Start, my.results$Pi, col="darkblue")#
+#
+### Add a line for Dxy#
+lines(my.results$Start, my.results$Dxy, col="green", lty=2)#
+#
+### To add Tajima's D, which is scaled differently, I need to make a new plot on top of this one,#
+### and add a separate set of axes#
+par(new=T)#
+plot(my.results$Start, my.results$Tajima, type="l",#
+     col="red", ylim=c(-1.5,2), lty=3, axes=F, xlab=NA, ylab=NA)#
+axis(side=4)#
+mtext(side=4, line=3, "Tajima's D")#
+#
+### Finally, let's make a legend#
+lgd <- legend("topright", legend=c(expression(theta[W]), expression(Pi), expression(D[XY]), "Tajima's D"), #
+              pch=c(22,NA,NA,NA),#
+              fill=c(rgb(0,0,1, alpha=0.3), NA,NA,NA),#
+              lty=c(NA,1,2,3),#
+              col=c(NA,"darkblue","green","red"), bty="n")
+par(mar=c(5,5,2,5))#
+#
+### Create an empty plot#
+plot(my.results$Start, my.results$Theta, type="n",#
+     xlab="Position",#
+     ylab=expression(paste("Population Mutation Rate (", theta[W], " & ", pi, ")")), ylim=c(-0.054,0.07))#
+#
+### Plot Theta-w as a semi-transparent filled in shape#
+polygon(c(my.results$Start[1], my.results$Start, my.results$Start[nrow(my.results)]),#
+        c(0, my.results$Theta, 0), col=rgb(0,0,1, alpha=0.3), border=NA)#
+#
+### Add a line for Pi#
+lines(my.results$Start, my.results$Pi, col="darkblue")#
+#
+### Add a line for Dxy#
+lines(my.results$Start, my.results$Dxy, col="green", lty=2)#
+#
+### To add Tajima's D, which is scaled differently, I need to make a new plot on top of this one,#
+### and add a separate set of axes#
+par(new=T)#
+plot(my.results$Start, my.results$Tajima, type="l",#
+     col="red", ylim=c(-1.5,2), lty=3, axes=F, xlab=NA, ylab=NA)#
+axis(side=4)#
+mtext(side=4, line=3, "Tajima's D")#
+#
+### Finally, let's make a legend#
+lgd <- legend("topright", legend=c(expression(theta[W]), expression(Pi), expression(D[XY]), "Tajima's D"),#
+              lty=c(NA,1,2,3),#
+              col=c(NA,"darkblue","green","red"), bty="n")
+lgd
+par(mar=c(5,5,2,5))#
+#
+### Create an empty plot#
+plot(my.results$Start, my.results$Theta, type="n",#
+     xlab="Position",#
+     ylab=expression(paste("Population Mutation Rate (", theta[W], " & ", pi, ")")), ylim=c(-0.054,0.07))#
+#
+### Plot Theta-w as a semi-transparent filled in shape#
+polygon(c(my.results$Start[1], my.results$Start, my.results$Start[nrow(my.results)]),#
+        c(0, my.results$Theta, 0), col=rgb(0,0,1, alpha=0.3), border=NA)#
+#
+### Add a line for Pi#
+lines(my.results$Start, my.results$Pi, col="darkblue")#
+#
+### Add a line for Dxy#
+lines(my.results$Start, my.results$Dxy, col="green", lty=2)#
+#
+### To add Tajima's D, which is scaled differently, I need to make a new plot on top of this one,#
+### and add a separate set of axes#
+par(new=T)#
+plot(my.results$Start, my.results$Tajima, type="l",#
+     col="red", ylim=c(-1.5,2), lty=3, axes=F, xlab=NA, ylab=NA)#
+axis(side=4)#
+mtext(side=4, line=3, "Tajima's D")#
+#
+### Finally, let's make a legend#
+lgd <- legend("topright", legend=c(expression(theta[W]), expression(Pi), expression(D[XY]), "Tajima's D"),#
+              lty=c(NA,1,2,3),#
+              col=c(NA,"darkblue","green","red"), bty="n")#
+legend(lgd$rect$left, lgd$rect$top, legend=c(""), pch=22,#
+       fill=c(rgb(0,0,1,alpha=0.3)), border="n", bty="n")
+legend(lgd$rect$left, lgd$rect$top, legend=c(""), pch=22,#
+       fill=c(rgb(0,0,1,alpha=0.3)), border=NA, bty="n")
+par(mar=c(5,5,2,5))#
+#
+### Create an empty plot#
+plot(my.results$Start, my.results$Theta, type="n",#
+     xlab="Position",#
+     ylab=expression(paste("Population Mutation Rate (", theta[W], " & ", pi, ")")), ylim=c(-0.054,0.07))#
+#
+### Plot Theta-w as a semi-transparent filled in shape#
+polygon(c(my.results$Start[1], my.results$Start, my.results$Start[nrow(my.results)]),#
+        c(0, my.results$Theta, 0), col=rgb(0,0,1, alpha=0.3), border=NA)#
+#
+### Add a line for Pi#
+lines(my.results$Start, my.results$Pi, col="darkblue")#
+#
+### Add a line for Dxy#
+lines(my.results$Start, my.results$Dxy, col="green", lty=2)#
+#
+### To add Tajima's D, which is scaled differently, I need to make a new plot on top of this one,#
+### and add a separate set of axes#
+par(new=T)#
+plot(my.results$Start, my.results$Tajima, type="l",#
+     col="red", ylim=c(-1.5,2), lty=3, axes=F, xlab=NA, ylab=NA)#
+axis(side=4)#
+mtext(side=4, line=3, "Tajima's D")#
+#
+### Finally, let's make a legend#
+lgd <- legend("topright", legend=c(expression(theta[W]), expression(Pi), expression(D[XY]), "Tajima's D"),#
+              lty=c(NA,1,2,3),#
+              col=c(NA,"darkblue","green","red"), bty="n")#
+legend(lgd$rect$left, lgd$rect$top, legend=c(""), pch=22,#
+       fill=c(rgb(0,0,1,alpha=0.3)), border=NA, bty="n")
+par(mar=c(5,5,2,5))#
+#
+### Create an empty plot#
+plot(my.results$Start, my.results$Theta, type="n",#
+     xlab="Position",#
+     ylab=expression(paste("Population Mutation Rate (", theta[W], " & ", pi, ")")), ylim=c(-0.054,0.07))#
+#
+### Plot Theta-w as a semi-transparent filled in shape#
+polygon(c(my.results$Start[1], my.results$Start, my.results$Start[nrow(my.results)]),#
+        c(0, my.results$Theta, 0), col=rgb(0,0,1, alpha=0.3), border=NA)#
+#
+### Add a line for Pi#
+lines(my.results$Start, my.results$Pi, col="darkblue")#
+#
+### Add a line for Dxy#
+lines(my.results$Start, my.results$Dxy, col="green", lty=2)#
+#
+### To add Tajima's D, which is scaled differently, I need to make a new plot on top of this one,#
+### and add a separate set of axes#
+par(new=T)#
+plot(my.results$Start, my.results$Tajima, type="l",#
+     col="red", ylim=c(-1.5,2), lty=3, axes=F, xlab=NA, ylab=NA)#
+axis(side=4)#
+mtext(side=4, line=3, "Tajima's D")#
+#
+### Finally, let's make a legend#
+lgd <- legend("topright", legend=c(expression(theta[W]), expression(Pi), expression(D[XY]), "Tajima's D"),#
+              lty=c(NA,1,2,3),#
+              col=c(NA,"darkblue","green","red"), bty="n")#
+legend(lgd$rect$left, lgd$rect$top, pch=22,#
+       fill=c(rgb(0,0,1,alpha=0.3)), border=NA, bty="n")
+legend(lgd$rect$left, lgd$rect$top, legend=NA, pch=22,#
+       fill=c(rgb(0,0,1,alpha=0.3)), border=NA, bty="n")
+par(mar=c(5,5,2,5))#
+#
+### Create an empty plot#
+plot(my.results$Start, my.results$Theta, type="n",#
+     xlab="Position",#
+     ylab=expression(paste("Population Mutation Rate (", theta[W], " & ", pi, ")")), ylim=c(-0.054,0.07))#
+#
+### Plot Theta-w as a semi-transparent filled in shape#
+polygon(c(my.results$Start[1], my.results$Start, my.results$Start[nrow(my.results)]),#
+        c(0, my.results$Theta, 0), col=rgb(0,0,1, alpha=0.3), border=NA)#
+#
+### Add a line for Pi#
+lines(my.results$Start, my.results$Pi, col="darkblue")#
+#
+### Add a line for Dxy#
+lines(my.results$Start, my.results$Dxy, col="green", lty=2)#
+#
+### To add Tajima's D, which is scaled differently, I need to make a new plot on top of this one,#
+### and add a separate set of axes#
+par(new=T)#
+plot(my.results$Start, my.results$Tajima, type="l",#
+     col="red", ylim=c(-1.5,2), lty=3, axes=F, xlab=NA, ylab=NA)#
+axis(side=4)#
+mtext(side=4, line=3, "Tajima's D")#
+#
+### Finally, let's make a legend#
+lgd <- legend("topright", legend=c(expression(theta[W]), expression(Pi), expression(D[XY]), "Tajima's D"),#
+              lty=c(NA,1,2,3),#
+              col=c(NA,"darkblue","green","red"), bty="n")#
+legend(lgd$rect$left, lgd$rect$top, legend=NA, pch=22,#
+       fill=c(rgb(0,0,1,alpha=0.3)), border=NA, bty="n", col=NA)
+par(mar=c(5,5,2,5))#
+#
+### Create an empty plot#
+plot(my.results$Start, my.results$Theta, type="n",#
+     xlab="Position",#
+     ylab=expression(paste("Population Mutation Rate (", theta[W], " & ", pi, ")")), ylim=c(-0.054,0.07))#
+#
+### Plot Theta-w as a semi-transparent filled in shape#
+polygon(c(my.results$Start[1], my.results$Start, my.results$Start[nrow(my.results)]),#
+        c(0, my.results$Theta, 0), col=rgb(1,1,1, alpha=0.3), border=NA)
+par(mar=c(5,5,2,5))#
+#
+### Create an empty plot#
+plot(my.results$Start, my.results$Theta, type="n",#
+     xlab="Position",#
+     ylab=expression(paste("Population Mutation Rate (", theta[W], " & ", pi, ")")), ylim=c(-0.054,0.07))#
+#
+### Plot Theta-w as a semi-transparent filled in shape#
+polygon(c(my.results$Start[1], my.results$Start, my.results$Start[nrow(my.results)]),#
+        c(0, my.results$Theta, 0), col=rgb(0,0,0, alpha=0.3), border=NA)
+lines(my.results$Start, my.results$Pi, col="black")
+lines(my.results$Start, my.results$Dxy, col="goldenrod", lty=2)
+par(new=T)#
+plot(my.results$Start, my.results$Tajima, type="l",#
+     col="darkred", ylim=c(-1.5,2), lty=3, axes=F, xlab=NA, ylab=NA)#
+axis(side=4)#
+mtext(side=4, line=3, "Tajima's D")#
+#
+### Finally, let's make a legend#
+lgd <- legend("topright", legend=c(expression(theta[W]), expression(Pi), expression(D[XY]), "Tajima's D"),#
+              lty=c(NA,1,2,3),#
+              col=c(NA,"black","goldenrod","darkred"), bty="n")#
+legend(lgd$rect$left, lgd$rect$top, legend=NA, pch=22,#
+       fill=c(rgb(0,0,0,alpha=0.3)), border=NA, bty="n", col=NA)
+par(mar=c(5,5,2,5))#
+#
+### Create an empty plot#
+plot(my.results$Start, my.results$Theta, type="n",#
+     xlab="Position",#
+     ylab=expression(paste("Population Mutation Rate (", theta[W], " & ", pi, ")")), ylim=c(-0.054,0.07))#
+#
+### Plot Theta-w as a semi-transparent filled in shape#
+polygon(c(my.results$Start[1], my.results$Start, my.results$Start[nrow(my.results)]),#
+        c(0, my.results$Theta, 0), col=rgb(0,0,0, alpha=0.7), border=NA)
+par(mar=c(5,5,2,5))#
+#
+### Create an empty plot#
+plot(my.results$Start, my.results$Theta, type="n",#
+     xlab="Position",#
+     ylab=expression(paste("Population Mutation Rate (", theta[W], " & ", pi, ")")), ylim=c(-0.054,0.07))#
+#
+### Plot Pi as a semi-transparent filled in shape#
+polygon(c(my.results$Start[1], my.results$Start, my.results$Start[nrow(my.results)]),#
+        c(0, my.results$Pi, 0), col=rgb(0,0,0, alpha=0.9), border=NA)#
+#
+polygon(c(my.results$Start[1], my.results$Start, my.results$Start[nrow(my.results)]),#
+        c(0, my.results$Theta, 0), col=rgb(1,0,0, alpha=0.9), border=NA)
+rgb("darkred")
+plot(my.results$Start, my.results$Theta, type="n",#
+     xlab="Position",#
+     ylab=expression(paste("Population Mutation Rate (", theta[W], " & ", pi, ")")), ylim=c(-0.054,0.07))#
+#
+### Plot Theta as a filled in shape#
+polygon(c(my.results$Start[1], my.results$Start, my.results$Start[nrow(my.results)]),#
+        c(0, my.results$Theta, 0), col=rgb(0,0,0, alpha=0.9), border=NA)#
+#
+### Plot Pi as another filled in shape,#
+### but make it semi-transparent so we can see the Theta#
+### values behind it#
+polygon(c(my.results$Start[1], my.results$Start, my.results$Start[nrow(my.results)]),#
+        c(0, my.results$Pi, 0), col=rgb("darkred",0,0, alpha=0.6), border=NA)
+polygon(c(my.results$Start[1], my.results$Start, my.results$Start[nrow(my.results)]),#
+        c(0, my.results$Pi, 0), col=rgb(1,0,0, alpha=0.6), border=NA)
+col2rgb("goldenrod4")
+par(mar=c(5,5,2,5))#
+#
+### Create an empty plot#
+plot(my.results$Start, my.results$Theta, type="n",#
+     xlab="Position",#
+     ylab=expression(paste("Population Mutation Rate (", theta[W], " & ", pi, ")")), ylim=c(-0.054,0.07))#
+#
+### Plot Theta as a filled in shape#
+polygon(c(my.results$Start[1], my.results$Start, my.results$Start[nrow(my.results)]),#
+        c(0, my.results$Theta, 0), col=rgb(139,105,20, alpha=0.9), border=NA)#
+#
+### Plot Pi as another filled in shape,#
+### but make it semi-transparent so we can see the Theta#
+### values behind it#
+polygon(c(my.results$Start[1], my.results$Start, my.results$Start[nrow(my.results)]),#
+        c(0, my.results$Pi, 0), col=rgb(1,0,0, alpha=0.6), border=NA)
+col2rgb("goldenrod4")/255
+par(mar=c(5,5,2,5))#
+#
+### Create an empty plot#
+plot(my.results$Start, my.results$Theta, type="n",#
+     xlab="Position",#
+     ylab=expression(paste("Population Mutation Rate (", theta[W], " & ", pi, ")")), ylim=c(-0.054,0.07))#
+#
+### Plot Theta as a filled in shape#
+polygon(c(my.results$Start[1], my.results$Start, my.results$Start[nrow(my.results)]),#
+        c(0, my.results$Theta, 0), col=rgb(0.545,0.411,0.078, alpha=0.9), border=NA)
+col2rgb("goldenrod2")/255
+par(mar=c(5,5,2,5))#
+#
+### Create an empty plot#
+plot(my.results$Start, my.results$Theta, type="n",#
+     xlab="Position",#
+     ylab=expression(paste("Population Mutation Rate (", theta[W], " & ", pi, ")")), ylim=c(-0.054,0.07))#
+#
+### Plot Theta as a filled in shape#
+polygon(c(my.results$Start[1], my.results$Start, my.results$Start[nrow(my.results)]),#
+        c(0, my.results$Theta, 0), col=rgb(0.933,0.705,0.133, alpha=0.9), border=NA)
+col2rgb("darkred")/255
+polygon(c(my.results$Start[1], my.results$Start, my.results$Start[nrow(my.results)]),#
+        c(0, my.results$Pi, 0), col=rgb(0.545,0,0, alpha=0.6), border=NA)
+plot(my.results$Start, my.results$Theta, type="n",#
+     xlab="Position",#
+     ylab=expression(paste("Population Mutation Rate (", theta[W], " & ", pi, ")")), ylim=c(-0.054,0.07))#
+#
+### Plot Theta as a filled in shape#
+polygon(c(my.results$Start[1], my.results$Start, my.results$Start[nrow(my.results)]),#
+        c(0, my.results$Theta, 0), col=rgb(0.545,0,0, alpha=0.6), border=NA)#
+#
+### Plot Pi as another filled in shape,#
+### but make it semi-transparent so we can see the Theta#
+### values behind it#
+polygon(c(my.results$Start[1], my.results$Start, my.results$Start[nrow(my.results)]),#
+        c(0, my.results$Pi, 0), col=rgb(0.933,0.705,0.133, alpha=0.6), border=NA)
+par(mar=c(5,5,2,5))#
+#
+### Create an empty plot#
+plot(my.results$Start, my.results$Theta, type="n",#
+     xlab="Position",#
+     ylab=expression(paste("Population Mutation Rate (", theta[W], " & ", pi, ")")), ylim=c(-0.054,0.07))#
+#
+### Plot Theta as a filled in shape#
+polygon(c(my.results$Start[1], my.results$Start, my.results$Start[nrow(my.results)]),#
+        c(0, my.results$Theta, 0), col=rgb(0.545,0,0, alpha=0.99), border=NA)#
+#
+### Plot Pi as another filled in shape,#
+### but make it semi-transparent so we can see the Theta#
+### values behind it#
+polygon(c(my.results$Start[1], my.results$Start, my.results$Start[nrow(my.results)]),#
+        c(0, my.results$Pi, 0), col=rgb(0.933,0.705,0.133, alpha=0.6), border=NA)
+lines(my.results$Start, my.results$Dxy, col="black")
+par(new=T)#
+plot(my.results$Start, my.results$Tajima, type="l",#
+     col="black", ylim=c(-1.5,2), lty=3, axes=F, xlab=NA, ylab=NA)#
+axis(side=4)#
+mtext(side=4, line=3, "Tajima's D")
+lgd <- legend("topright", legend=c(expression(theta[W]), expression(Pi), expression(D[XY]), "Tajima's D"),#
+              lty=c(NA,NA,1,3),#
+              col=c(NA,NA,"black","black"), bty="n")
+legend(lgd$rect$left, lgd$rect$top, legend=NA, pch=c(22,22),#
+       fill=c(rgb(0.545,0,0,alpha=0.99), rgb(0.933,0.705,0.133,alpha=0.6)), border=NA, bty="n", col=NA)
+legend(lgd$rect$left, lgd$rect$top, legend=c(NA,NA), pch=c(22,22),#
+       fill=c(rgb(0.545,0,0,alpha=0.99), rgb(0.933,0.705,0.133,alpha=0.6)), border=NA, bty="n", col=NA)
+par(mar=c(5,5,2,5))#
+#
+### Create an empty plot#
+plot(my.results$Start, my.results$Theta, type="n",#
+     xlab="Position",#
+     ylab=expression(paste("Population Mutation Rate (", theta[W], " & ", pi, ")")), ylim=c(-0.054,0.07))#
+#
+### Plot Theta as a filled in shape#
+polygon(c(my.results$Start[1], my.results$Start, my.results$Start[nrow(my.results)]),#
+        c(0, my.results$Theta, 0), col=rgb(0,0,0, alpha=0.99), border=NA)#
+#
+### Plot Pi as another filled in shape,#
+### but make it semi-transparent so we can see the Theta#
+### values behind it#
+polygon(c(my.results$Start[1], my.results$Start, my.results$Start[nrow(my.results)]),#
+        c(0, my.results$Pi, 0), col=rgb(0.933,0.705,0.133, alpha=0.6), border=NA)#
+#
+### Add a line for Dxy#
+lines(my.results$Start, my.results$Dxy, col="darkred")#
+#
+### To add Tajima's D, which is scaled differently, I need to make a new plot on top of this one,#
+### and add a separate set of axes#
+par(new=T)#
+plot(my.results$Start, my.results$Tajima, type="l",#
+     col="darkred", ylim=c(-1.5,2), lty=3, axes=F, xlab=NA, ylab=NA)#
+axis(side=4)#
+mtext(side=4, line=3, "Tajima's D")#
+#
+### Finally, let's make a legend#
+lgd <- legend("topright", legend=c(expression(theta[W]), expression(Pi), expression(D[XY]), "Tajima's D"),#
+              lty=c(NA,NA,1,3),#
+              col=c(NA,NA,"darkred","darkred"), bty="n")#
+legend(lgd$rect$left, lgd$rect$top, legend=c(NA,NA), pch=c(22,22),#
+       fill=c(rgb(0,0,0,alpha=0.99), rgb(0.933,0.705,0.133,alpha=0.6)), border=NA, bty="n", col=NA)
+par(mar=c(5,5,2,5))#
+#
+### Create an empty plot#
+plot(my.results$Start, my.results$Theta, type="n",#
+     xlab="Position",#
+     ylab=expression(paste("Population Mutation Rate (", theta[W], " & ", pi, ")")), ylim=c(-0.054,0.07))#
+#
+### Plot Theta as a filled in shape#
+polygon(c(my.results$Start[1], my.results$Start, my.results$Start[nrow(my.results)]),#
+        c(0, my.results$Theta, 0), col=rgb(0.545,0,0, alpha=0.99), border=NA)#
+#
+### Plot Pi as another filled in shape,#
+### but make it semi-transparent so we can see the Theta#
+### values behind it#
+polygon(c(my.results$Start[1], my.results$Start, my.results$Start[nrow(my.results)]),#
+        c(0, my.results$Pi, 0), col=rgb(0.933,0.705,0.133, alpha=0.6), border=NA)#
+#
+### Add a line for Dxy#
+lines(my.results$Start, my.results$Dxy, col="darkbrown")#
+#
+### To add Tajima's D, which is scaled differently, I need to make a new plot on top of this one,#
+### and add a separate set of axes#
+par(new=T)#
+plot(my.results$Start, my.results$Tajima, type="l",#
+     col="black", ylim=c(-1.5,2), lty=3, axes=F, xlab=NA, ylab=NA)#
+axis(side=4)#
+mtext(side=4, line=3, "Tajima's D")#
+#
+### Finally, let's make a legend#
+lgd <- legend("topright", legend=c(expression(theta[W]), expression(Pi), expression(D[XY]), "Tajima's D"),#
+              lty=c(NA,NA,1,3),#
+              col=c(NA,NA,"darkbrown","black"), bty="n")#
+legend(lgd$rect$left, lgd$rect$top, legend=c(NA,NA), pch=c(22,22),#
+       fill=c(rgb(0.545,0,0,alpha=0.99), rgb(0.933,0.705,0.133,alpha=0.6)), border=NA, bty="n", col=NA)
+colors()[grep("brown", colors())]
+par(mar=c(5,5,2,5))#
+#
+### Create an empty plot#
+plot(my.results$Start, my.results$Theta, type="n",#
+     xlab="Position",#
+     ylab=expression(paste("Population Mutation Rate (", theta[W], " & ", pi, ")")), ylim=c(-0.054,0.07))#
+#
+### Plot Theta as a filled in shape#
+polygon(c(my.results$Start[1], my.results$Start, my.results$Start[nrow(my.results)]),#
+        c(0, my.results$Theta, 0), col=rgb(0.545,0,0, alpha=0.99), border=NA)#
+#
+### Plot Pi as another filled in shape,#
+### but make it semi-transparent so we can see the Theta#
+### values behind it#
+polygon(c(my.results$Start[1], my.results$Start, my.results$Start[nrow(my.results)]),#
+        c(0, my.results$Pi, 0), col=rgb(0.933,0.705,0.133, alpha=0.6), border=NA)#
+#
+### Add a line for Dxy#
+lines(my.results$Start, my.results$Dxy, col="brown4")#
+#
+### To add Tajima's D, which is scaled differently, I need to make a new plot on top of this one,#
+### and add a separate set of axes#
+par(new=T)#
+plot(my.results$Start, my.results$Tajima, type="l",#
+     col="black", ylim=c(-1.5,2), lty=3, axes=F, xlab=NA, ylab=NA)#
+axis(side=4)#
+mtext(side=4, line=3, "Tajima's D")#
+#
+### Finally, let's make a legend#
+lgd <- legend("topright", legend=c(expression(theta[W]), expression(Pi), expression(D[XY]), "Tajima's D"),#
+              lty=c(NA,NA,1,3),#
+              col=c(NA,NA,"brown4","black"), bty="n")#
+legend(lgd$rect$left, lgd$rect$top, legend=c(NA,NA), pch=c(22,22),#
+       fill=c(rgb(0.545,0,0,alpha=0.99), rgb(0.933,0.705,0.133,alpha=0.6)), border=NA, bty="n", col=NA)
+par(mar=c(5,5,2,5))#
+#
+### Create an empty plot#
+plot(my.results$Start, my.results$Theta, type="n",#
+     xlab="Position",#
+     ylab=expression(paste("Population Mutation Rate (", theta[W], " & ", pi, ")")), ylim=c(-0.054,0.07))#
+#
+### Plot Theta as a filled in shape#
+polygon(c(my.results$Start[1], my.results$Start, my.results$Start[nrow(my.results)]),#
+        c(0, my.results$Theta, 0), col=rgb(0.545,0,0, alpha=0.99), border=NA)#
+#
+### Plot Pi as another filled in shape,#
+### but make it semi-transparent so we can see the Theta#
+### values behind it#
+polygon(c(my.results$Start[1], my.results$Start, my.results$Start[nrow(my.results)]),#
+        c(0, my.results$Pi, 0), col=rgb(0.933,0.705,0.133, alpha=0.6), border=NA)#
+#
+### Add a line for Dxy#
+lines(my.results$Start, my.results$Dxy, col="black")#
+#
+### To add Tajima's D, which is scaled differently, I need to make a new plot on top of this one,#
+### and add a separate set of axes#
+par(new=T)#
+plot(my.results$Start, my.results$Tajima, type="l",#
+     col="black", ylim=c(-1.5,2), lty=3, axes=F, xlab=NA, ylab=NA)#
+axis(side=4)#
+mtext(side=4, line=3, "Tajima's D")#
+#
+### Finally, let's make a legend#
+lgd <- legend("topright", legend=c(expression(theta[W]), expression(Pi), expression(D[XY]), "Tajima's D"),#
+              lty=c(NA,NA,1,3),#
+              col=c(NA,NA,"black","black"), bty="n")#
+legend(lgd$rect$left, lgd$rect$top, legend=c(NA,NA), pch=c(22,22),#
+       fill=c(rgb(0.545,0,0,alpha=0.99), rgb(0.933,0.705,0.133,alpha=0.6)), border=NA, bty="n", col=NA)
+install.packages("knitr")
+install.packages("rmarkdown")
+library(devtools)
+?github_pull
+github_pull("eacooper400/sfsr")
+?github_pat
+install_github("eacooper400/sfsr")
+install_github("eacooper400/sfsr")
+install_github("eacooper400/sfsr")
+install_github("eacooper400/sfsr")
+setwd("~/sfsr/")
+read.table("data/lyst.fa.txt")
+x=read.table("data/lyst.vcf.txt")
+x=read.table("data/lyst.gff3.txt")
+?data
+x=read.table("data/lyst.gff3.txt")
+x=read.table("data/lyst.gff3.txt")
+x=read.table("data/lyst.gff3.txt")
+install_github("eacooper400/sfsr")
+data(lyst-vcf)
